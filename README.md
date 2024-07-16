@@ -1,61 +1,111 @@
-# QA Bot for PDF Files
+# QA Bot Solution
 
-## Overview
+This repository contains a Jupyter notebook that demonstrates a QA (Question-Answering) bot solution. The notebook is designed to showcase the implementation and testing of the bot.
 
-This project is a QA bot designed to handle PDF files. It extracts text from PDFs, generates embeddings, and stores them in a Pinecone vector database. Users can query the system, which retrieves relevant text chunks based on similarity scores. The system integrates with the Gemini model for refining user queries.
+## High-Level Architecture
 
-## Features
+![High-level Architecture Diagram](QAHighLevelDesign.jpeg)
 
-- Extracts text from PDF files
-- Segments text into chunks
-- Generates embeddings using the Gemini model
-- Stores embeddings in Pinecone vector database
-- Handles user queries and retrieves relevant text chunks
-- Refines user queries using the Gemini model
-- Maintains user query context for up to 5 consecutive questions
+## Prerequisites
 
-## Requirements
+Ensure you have the following installed:
 
-- Docker
-- Python 3.8+
-- Pip
+- Python 3.6 or higher
+- Jupyter Notebook
+- Required Python packages (listed in `requirements.txt`)
 
-## Setup
+## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/qa-bot-pdf.git
-   cd qa-bot-pdf
-   ```
+1. **Clone the repository**
 
-2. Create a virtual environment and activate it:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
+    ```bash
+    git clone git@github.com:sushant2505/llm-assignment.git
+    cd llm-assignment
+    ```
 
-3. Install the required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. **Create a virtual environment (optional but recommended)**
 
-4. Set up Pinecone:
-   - Sign up at [Pinecone](https://www.pinecone.io/) and get your API key.
-   - Replace `'your-pinecone-api-key'` in the code with your Pinecone API key.
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\\Scripts\\activate`
+    ```
 
-5. Run the Jupyter Notebook:
-   ```bash
-   jupyter notebook
-   ```
+3. **Install the required packages**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
-1. Open the Jupyter Notebook file `qa_bot_solution.ipynb`.
-2. Follow the instructions in the notebook to extract text from PDFs, generate embeddings, store them in Pinecone, and handle user queries.
+1. **Launch Jupyter Notebook**
 
-## Security Considerations
+    ```bash
+    jupyter notebook
+    ```
 
-- Ensure that your Pinecone API key is stored securely and not hard-coded in the source code.
-- Use authentication and authorization mechanisms to protect access to your system.
-- Implement data encryption for sensitive data both at rest and in transit.
-- Regularly update dependencies to patch security vulnerabilities.
+2. **Open the notebook**
+
+    In the Jupyter Notebook interface, navigate to the location of the `qa_bot_solution.ipynb` file and open it.
+
+3. **Run the notebook**
+
+    Execute the cells in the notebook sequentially to run the QA bot solution. The notebook is designed to guide you through the setup, implementation, and testing of the bot.
+
+## Deployment
+
+To deploy the QA bot solution, you may consider the following steps based on your specific use case:
+
+1. **Export the Notebook to Python Script**
+
+    You can convert the Jupyter notebook to a Python script using the following command:
+
+    ```bash
+    jupyter nbconvert --to script qa_bot_solution.ipynb
+    ```
+
+2. **Integrate with a Web Framework**
+
+    - You can integrate the exported Python script into a web application using frameworks like Flask or Django.
+    - Example structure for a Flask application:
+
+        ```python
+        from flask import Flask, request, jsonify
+        # Import necessary components from the QA bot script
+
+        app = Flask(__name__)
+
+        @app.route('/ask', methods=['POST'])
+        def ask():
+            data = request.json
+            question = data.get('question')
+            # Use the QA bot solution to answer the question
+            answer = get_answer(question)  # Assuming get_answer is a function in your script
+            return jsonify({'answer': answer})
+
+        if __name__ == '__main__':
+            app.run(debug=True)
+        ```
+
+3. **Deploy to a Cloud Service**
+
+    - Choose a cloud service provider (e.g., AWS, GCP, Azure, Heroku).
+    - Follow the provider's documentation to deploy your web application.
+
+## Contributing
+
+If you wish to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+If you have any questions or need further assistance, feel free to open an issue or contact the repository maintainer.
